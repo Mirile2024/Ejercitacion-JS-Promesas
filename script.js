@@ -11,7 +11,9 @@ const cliente = {
   nombre: 'Jane Doe',
   fondos: 50 // Aumentar este valor para simular diferentes escenarios.
 }
-
+cliente.estadoCuenta = 'activa'
+cliente.fondos = 150
+console.log(cliente);
 // Simulación de la promesa para consultar la cuenta del cliente.
 const consultarCuenta = new Promise((resolve, reject) => {
   // Mostramos el mensaje inicial de carga.
@@ -29,6 +31,18 @@ const consultarCuenta = new Promise((resolve, reject) => {
     }
   }, 3000)
 })
+consultarCuenta
+  .then((datos) => {
+    cartelRespuesta.innerHTML =datos.mensaje;
+    cartelRespuesta.style.border = '3px solid green'
+  }).catch((err) => {
+    cartelRespuesta.innerHTML = err.mensaje
+    cartelRespuesta.style.border = '3px solid red'
+
+  })
+  .finally(() => {
+    console.log('Consulta finalizada.')
+});
 
 // Manejo de la promesa.
 // ejecutar estas lineas si la promesa se resuelve exitosamente.
