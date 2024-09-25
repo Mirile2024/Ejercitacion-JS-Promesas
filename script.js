@@ -13,14 +13,19 @@ const cliente = {
 };
 // Aumentar este valor para simular diferentes escenarios.
 //caso1
-// cliente.estadoCuenta = 'activa';
-// cliente.fondos = 120;
-// console.log(cliente);
+cliente.estadoCuenta = 'activa';
+cliente.fondos = 120;
+console.log(cliente);
 
 //caso2
-cliente.estadoCuenta = 'activa';
-cliente.fondos = 30;
-console.log(cliente);
+// cliente.estadoCuenta = 'activa';
+// cliente.fondos = 50;
+// console.log(cliente);
+
+//caso3
+// cliente.estadoCuenta = 'inactiva';
+// cliente.fondos = 120;
+// console.log(cliente);
 
 
 // Simulación de la promesa para consultar la cuenta del cliente.
@@ -30,11 +35,12 @@ const consultarCuenta = new Promise((resolve, reject) => {
 
   // Simulación de la consulta con un retraso de 3 segundos.
   setTimeout(() => {
+
     // Condición para rechazar la promesa si la cuenta está inactiva.
     if (cliente.estadoCuenta === "inactiva") {
-      reject(new Error({ mensaje: 'Su cuenta no está activa', status: '215' }))
+      reject(({ mensaje: 'Su cuenta no está activa', status: '215' }))
     } else if (cliente.fondos < 100) {
-      reject(new Error({ mensaje: 'Fondos insuficientes', status: '240' }))
+      reject(({ mensaje: 'Fondos insuficientes', status: '240' }))
     } else {
       resolve({
         mensaje: 'Pago realizado con éxito',
@@ -47,11 +53,11 @@ const consultarCuenta = new Promise((resolve, reject) => {
 
 consultarCuenta
   .then((data) => {
-    cartelRespuesta.innerHTML= data.mensaje
+    cartelRespuesta.innerHTML = data.mensaje
     cartelRespuesta.style.border = '3px solid green'
   })
-  .catch((err) => {
-   console.log(cartelRespuesta.innerHTML = err.mensaje);
+  .catch((error) => {
+    cartelRespuesta.innerHTML = error.mensaje
     cartelRespuesta.style.border = '3px solid red'
   })
   .finally(() => {
