@@ -48,7 +48,7 @@ const consultarCuenta = new Promise((resolve, reject) => {
         status: '200'
       })
     }
-  }, 500)
+  }, 3000)
 });
 
 consultarCuenta
