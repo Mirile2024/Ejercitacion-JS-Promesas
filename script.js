@@ -7,13 +7,22 @@ const cartelRespuesta = document.querySelector('h5')
 // Crear el objeto de cliente con la información inicial.
 // Cambia los valores según el caso que desees simular.
 const cliente = {
-  estadoCuenta: 'inactiva', // Cambiar a "activa" para simular cuenta activa.
+  estadoCuenta: "inactiva", // Cambiar a "activa" para simular cuenta activa.
   nombre: 'Jane Doe',
-  fondos: 50 // Aumentar este valor para simular diferentes escenarios.
-}
-cliente.estadoCuenta = 'activa'
-cliente.fondos = 150
+  fondos: 50 
+};
+// Aumentar este valor para simular diferentes escenarios.
+//caso1
+// cliente.estadoCuenta = 'activa';
+// cliente.fondos = 120;
+// console.log(cliente);
+
+//caso2
+cliente.estadoCuenta = 'activa';
+cliente.fondos = 30;
 console.log(cliente);
+
+
 // Simulación de la promesa para consultar la cuenta del cliente.
 const consultarCuenta = new Promise((resolve, reject) => {
   // Mostramos el mensaje inicial de carga.
@@ -22,27 +31,32 @@ const consultarCuenta = new Promise((resolve, reject) => {
   // Simulación de la consulta con un retraso de 3 segundos.
   setTimeout(() => {
     // Condición para rechazar la promesa si la cuenta está inactiva.
-    if (cliente.estadoCuenta === 'inactiva') { reject(new Error({ mensaje: 'Su cuenta no está activa', status: '215' })) } else if (cliente.fondos < 100) { reject(new Error({ mensaje: 'Fondos insuficientes', status: '240' })) } else {
+    if (cliente.estadoCuenta === "inactiva") {
+      reject(new Error({ mensaje: 'Su cuenta no está activa', status: '215' }))
+    } else if (cliente.fondos < 100) {
+      reject(new Error({ mensaje: 'Fondos insuficientes', status: '240' }))
+    } else {
       resolve({
         mensaje: 'Pago realizado con éxito',
         fondos: cliente.fondos,
         status: '200'
       })
     }
-  }, 3000)
-})
-consultarCuenta
-  .then((datos) => {
-    cartelRespuesta.innerHTML =datos.mensaje;
-    cartelRespuesta.style.border = '3px solid green'
-  }).catch((err) => {
-    cartelRespuesta.innerHTML = err.mensaje
-    cartelRespuesta.style.border = '3px solid red'
+  }, 500)
+});
 
+consultarCuenta
+  .then((data) => {
+    cartelRespuesta.innerHTML= data.mensaje
+    cartelRespuesta.style.border = '3px solid green'
+  })
+  .catch((err) => {
+   console.log(cartelRespuesta.innerHTML = err.mensaje);
+    cartelRespuesta.style.border = '3px solid red'
   })
   .finally(() => {
     console.log('Consulta finalizada.')
-});
+  })
 
 // Manejo de la promesa.
 // ejecutar estas lineas si la promesa se resuelve exitosamente.
